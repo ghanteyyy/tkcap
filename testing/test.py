@@ -1,6 +1,5 @@
 import tkcap
-import requests
-import webbrowser
+from tkinter import *
 from tkinter.tix import *
 from tkinter.font import Font
 from tkinter import messagebox
@@ -8,15 +7,13 @@ from tkinter import messagebox
 
 class Test:
     def __init__(self):
-        self.link = 'http://github.com/ghanteyyy/tkcap'
-
         self.master = Tk()
         self.master.config(bg='black')
         self.master.title('tkcap - TEST')
 
         self.title_image = PhotoImage(file='cover.png')
-        self.title = Label(self.master, image=self.title_image, bd=0, cursor='hand2')
-        self.title.pack()
+        self.title = Label(self.master, image=self.title_image, bd=0, bg='black')
+        self.title.pack(fill='both', expand=True)
 
         self.button = Button(self.master, text='CAPTURE', bd=1, fg='white', bg='black', activeforeground='grey', activebackground='black', cursor='hand2', font=Font(size=14), relief=GROOVE, command=self.capture_screenshot)
         self.button.pack(fill='x', side='bottom')
@@ -26,11 +23,6 @@ class Test:
 
         self.master.after(0, self.initial_position)
         self.master.bind('<Control-g>', lambda e: self.capture_screenshot())
-        self.title.bind('<Button-1>', lambda e: self.open_link())
-
-        self.balloon = Balloon(self.master)
-        self.balloon.bind_widget(self.title, balloonmsg=f'Go to: {self.link}')
-        self.balloon.bind_widget(self.button, balloonmsg='Capture Screenshot of this window')
 
         self.master.mainloop()
 
@@ -39,6 +31,7 @@ class Test:
 
         self.master.withdraw()
         self.master.update()
+        self.master.minsize(300, 137)
 
         width, height = self.master.winfo_width() + 100, self.master.winfo_height() + 10
         screen_width, screen_height = self.master.winfo_screenwidth(), self.master.winfo_screenheight()
@@ -51,25 +44,6 @@ class Test:
 
         cap = tkcap.CAP(self.master)
         cap.capture('test.png', overwrite=True)
-
-    def check_internet(self):
-        '''Checks whether you are connected to internet or not'''
-
-        try:
-            requests.get('http://google.com')
-            return True
-
-        except requests.ConnectionError:
-            return False
-
-    def open_link(self):
-        '''Opens the official github page of tkcap'''
-
-        if self.check_internet():
-            self.master.after(0, lambda: webbrowser.open(self.link))
-
-        else:
-            messagebox.showerror('No Internet', f'Unable to open {self.link} as you are not connected to internet')
 
 
 if __name__ == '__main__':
