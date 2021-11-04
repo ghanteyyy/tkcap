@@ -22,8 +22,8 @@ MIT License
 * Python:
   > * 3.x
 
-* Windows (32bit/64bit):
-  > * Windows 10
+* Windows:
+  > * Windows 10 & 11
 
 # Installation
 
@@ -35,16 +35,15 @@ tkcap is available on PyPI. You can install it through pip:
 
 ```python
 
-import tkcap
+  import tkcap
 
-cap = tkcap.CAP(master)     # master is an instance of tkinter
-cap.capture(FileName)       # Capture and Save the screenshot of the tkiner window
+  cap = tkcap.CAP(master)     # master is an instance of tkinter
+  cap.capture(FileName)       # Capture and Save the screenshot of the tkiner window
 
-# If you want the x_pos, y_pos, width and height of the tkinter window.
-region = cap.get_region()
+  # If you want the x_pos, y_pos, width and height of the tkinter window.
+  region = cap.get_region()
 
-# If you want to bind the key so that everytime you press that key
-# captures the screenshot. Here I have binded "Control g":
-# Set 'overwrite' parameter to True, to overwrite the file having same name
-master.bind('<Control-g>', lambda: cap.capture(FileName))
+  # If you want to bind the key so that everytime you press that key
+  # captures the screenshot. Here I have binded to "Control g"
+  master.bind('<Control-g>', lambda: cap.capture(FileName))
 ```
