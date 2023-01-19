@@ -14,13 +14,13 @@ Usage:
     # If you want the x_pos, y_pos, width and height of the tkinter window.
     region = cap.get_region()
 
-    # If you want to bind the key so that everytime you press that key
+    # If you want to bind the key so that every time you press that key
     # captures the screenshot. Here I have binded to "Control g"
     master.bind('<Control-g>', lambda: cap.capture(FileName))
 '''
 
 __all__ = ['CAP']
-__version__ = '0.0.2'
+__version__ = '0.0.3'
 __author__ = 'ghanteyyy'
 
 import os
@@ -81,7 +81,7 @@ class CAP:
         elif os.path.exists(path) and overwrite is False:
             raise exceptions.ImageNameExistsError(f'Cannot store image having same name: {tail}')
 
-        if overwrite:
+        if overwrite and os.path.exists(path):
             os.remove(path)
 
         pyautogui.screenshot(path, region=self.get_region())
